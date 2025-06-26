@@ -1,0 +1,6 @@
+[submodule "mods/rpgmapgen"]
+	path = mods/rpgmapgen
+	url = https://github.com/regulus79/rpgmapgen.git
+[submodule "mods/winter"]
+	path = mods/winter
+	url = https://github.com/regulus79/winter.git
