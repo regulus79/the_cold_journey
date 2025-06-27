@@ -16,13 +16,16 @@ local WALKING_DIGGING = 3
 
 tcj_player.base_inventory_formspec = table.concat({
     "size[8,8]",
-    "background9[0,0;0,0;tcj_dialogue_background1.png;true;16]",
     "list[current_player;main;0,4;8,4;]",
 }, "\n")
 
+tcj_player.formspec_prepend = table.concat({
+    "background9[0,0;0,0;tcj_dialogue_background1.png;true;16]"
+}, "\n")
 
 
 minetest.register_on_joinplayer(function(player)
+    player:set_formspec_prepend(tcj_player.formspec_prepend)
     if not core.is_creative_enabled() then
         tcj_clothing.update_inventory_formspec(player)
     end

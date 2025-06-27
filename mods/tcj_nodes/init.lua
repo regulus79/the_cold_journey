@@ -64,7 +64,13 @@ for i = 1,2 do
         use_texture_alpha = "blend",
         drawtype = "allfaces_optional",
         paramtype = "light",
-        groups = {cuttable = 1},
+        groups = {cuttable = 1, leaves = 1},
+        drop = {
+            max_items = 1,
+            items = {
+                {rarity = 3, items = {"tcj_fire:stick"}}
+            }
+        }
     })
 end
 
@@ -263,5 +269,6 @@ end)
 
 
 dofile(minetest.get_modpath("tcj_nodes").."/biomes.lua")
+dofile(minetest.get_modpath("tcj_nodes").."/chests.lua")
 dofile(minetest.get_modpath("tcj_nodes").."/decorations.lua")
 dofile(minetest.get_modpath("tcj_nodes").."/stairs.lua")
