@@ -45,6 +45,75 @@ tcj_nodes.regsiter_chest(
 	8, 2,
 	{
 		{item = "tcj_fire:match 3", prob = 1},
-		{item = "tcj_fire:stick 4", prob = 1},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+	}
+)
+
+
+tcj_nodes.regsiter_chest(
+	"chest2",
+	{"tcj_chest1_top.png", "tcj_chest1_top.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_front.png"},
+	"Chest",
+	8, 2,
+	{
+		{item = "tcj_clothing:hat", prob = 1},
+		{item = "tcj_hunger:bread", prob = 0.2},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+	}
+)
+
+tcj_nodes.regsiter_chest(
+	"chest3",
+	{"tcj_chest1_top.png", "tcj_chest1_top.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_front.png"},
+	"Chest",
+	8, 2,
+	{
+		{item = "tcj_clothing:coat", prob = 1},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_hunger:bread", prob = 0.2},
+	}
+)
+
+tcj_nodes.regsiter_chest(
+	"chest4",
+	{"tcj_chest1_top.png", "tcj_chest1_top.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_front.png"},
+	"Chest",
+	8, 2,
+	{
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_hunger:bread", prob = 0.2},
+		{item = "tcj_clothing:pants", prob = 1},
+		{item = "tcj_fire:stick", prob = 0.5},
+	}
+)
+
+tcj_nodes.regsiter_chest(
+	"chest5",
+	{"tcj_chest1_top.png", "tcj_chest1_top.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_front.png"},
+	"Chest",
+	8, 2,
+	{
+		{item = "tcj_hunger:bread", prob = 1},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_clothing:boots", prob = 1},
+	}
+)
+
+tcj_nodes.regsiter_chest(
+	"chest6",
+	{"tcj_chest1_top.png", "tcj_chest1_top.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_side.png", "tcj_chest1_front.png"},
+	"Chest",
+	8, 2,
+	{
+		{item = "tcj_hunger:bread", prob = 1},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_fire:stick", prob = 0.5},
+		{item = "tcj_hunger:bread 3", prob = 1},
+		{item = "tcj_hunger:bread 2", prob = 1},
 	}
 )

@@ -19,14 +19,22 @@ for _, burning in pairs({"", "_burning"}) do
 			description = "Stick bundle " .. i,
 			drawtype = "mesh",
 			mesh = "stick_bundle.obj",
-			drops = "tcj_fire:stick " .. i,
 			paramtype = "light",
 			light_source = burning ~= "" and 4 + 10 * i / max_sticks_in_bundle or 0,
 			tiles = {
-				burning == ""
-				and string.format("tcj_stick_bundle.png^[fill:96x32:%d,0:#000000^[makealpha:0,0,0", math.min(95, i*16))
-				or string.format("tcj_stick_bundle_burning.png^[fill:96x32:%d,0:#000000^[makealpha:0,0,0", math.min(95, i*16))
+				string.format("tcj_stick_bundle.png^[fill:96x32:%d,0:#000000^[makealpha:0,0,0", math.min(95, i*16))
 			},
+			overlay_tiles = burning ~= "" and {
+				{
+					name = string.format("tcj_stick_bundle_burning_animated.png^[fill:96x192:%d,0:#000000^[makealpha:0,0,0", math.min(95, i*16)),
+					animation = {
+						type = "vertical_frames",
+						aspect_w = 96,
+						aspect_h = 32,
+						length = 3.0,
+					}
+				}
+			} or nil,
 			buildable_to = true,
 			walkable = false,
 			damage_per_second = burning ~= "" and 2 or 0,
@@ -34,7 +42,11 @@ for _, burning in pairs({"", "_burning"}) do
 			groups = {breakable_by_hand = 1},
 			on_dig = function(pos, node, digger)
 				-- Maybe don't give players burning sticks?
-				if math.random() < 0.5 then
+				if burning ~= "" then
+					if math.random() < 0.5 then
+						core.item_drop(digger:get_inventory():add_item("main", "tcj_fire:stick"), digger, pos)
+					end
+				else
 					core.item_drop(digger:get_inventory():add_item("main", "tcj_fire:stick"), digger, pos)
 				end
 				if i > 1 then

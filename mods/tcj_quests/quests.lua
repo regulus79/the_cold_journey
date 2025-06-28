@@ -2,36 +2,50 @@
 
 minetest.register_on_newplayer(function(player)
     minetest.after(0, function()
-        tcj_quests.add_active_quest(player, "go_to_start")
-        player:set_pos(vector.new(30.5,10.5,2.0))
+        tcj_quests.add_active_quest(player, "enter_the_cabin")
+        player:set_pos(vector.new(66,10.8,-20))
+        player:set_look_horizontal(math.pi/6)
+        core.set_timeofday(0.5)
+        winter.target_base_weather_intensity = -10
     end)
 end)
 
 
 
 tcj_quests.quests = {
-    go_to_start = {
+    enter_the_cabin = {
         type = "go_to_pos",
-        hud_text = "Go to the start",
-        pos = vector.new(10,10,0),
+        hud_text = "Enter the cabin",
+        pos = vector.new(47,10,0),
         radius = 5,
         on_complete = function(player, questdata)
-            tcj_quests.add_active_quest(player, "go_to_midpoint")
+            tcj_quests.add_active_quest(player, "go_to_river")
+            winter.target_base_weather_intensity = 0
         end
     },
-    go_to_midpoint = {
+    go_to_river = {
         type = "go_to_pos",
-        hud_text = "Go to the midpoint",
-        pos = vector.new(400,200,400),
-        radius = 20,
+        hud_text = "Travel to safety",
+        pos = vector.new(350,30,350),
+        radius = 100,
+        on_complete = function(player, questdata)
+            tcj_quests.add_active_quest(player, "cross_river")
+        end
+    },
+    cross_river = {
+        type = "go_to_pos",
+        hud_text = "Cross the river",
+        pos = vector.new(450,30,450),
+        radius = 100,
         on_complete = function(player, questdata)
             tcj_quests.add_active_quest(player, "go_to_end")
+            winter.target_base_weather_intensity = 0.2
         end
     },
     go_to_end = {
         type = "go_to_pos",
-        hud_text = "Go to the end",
-        pos = vector.new(600,10,700),
+        hud_text = "Travel to safety",
+        pos = vector.new(1000,200,1000),
         radius = 20,
         on_complete = function(player, questdata)
             core.chat_send_player(player:get_player_name(), "You did it!")

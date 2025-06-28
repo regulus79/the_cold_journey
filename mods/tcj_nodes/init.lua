@@ -171,7 +171,7 @@ end
 
 
 
-minetest.register_node("tcj_nodes:water_source", {
+core.register_node("tcj_nodes:water_source", {
     description = "Test water source",
     drawtype = "liquid",
     waving = 1,
@@ -190,11 +190,11 @@ minetest.register_node("tcj_nodes:water_source", {
     groups = {water = 1},
 })
 
-minetest.register_node("tcj_nodes:water_flowing", {
+core.register_node("tcj_nodes:water_flowing", {
     description = "Test water flowing",
     drawtype = "flowingliquid",
     waving = 1,
-    tiles = {"tcj_water.png"},
+    special_tiles = {"tcj_water.png"},
     use_texture_alpha = "blend",
     paramtype = "light",
     paramtype2 = "flowingliquid",
@@ -219,6 +219,7 @@ minetest.register_node("tcj_nodes:ice", {
         type = "fixed",
         fixed = {-0.5, -0.45, -0.5, 0.5, -0.25, 0.5}
     },
+    drop = "",
     groups = {pickaxeable = 1, shovelable = 2, no_dust = 1},
     paramtype = "light",
 })
@@ -232,6 +233,7 @@ for i = 1,2 do
             type = "fixed",
             fixed = {-0.5, -0.45, -0.5, 0.5, -0.25, 0.5}
         },
+        drop = "",
         paramtype = "light",
     })
 end
@@ -250,16 +252,20 @@ local surrounding_nodes = {
 }
 winter.register_timer("ice_cracking", 0.5, function()
     for _, player in pairs(core.get_connected_players()) do
-        for _, offset in pairs(surrounding_nodes) do
-            if math.random() < 0.8 then
-                local pos = player:get_pos() + offset
-                local node = core.get_node(pos)
-                if node.name == "tcj_nodes:ice" then
-                    core.set_node(pos, {name = "tcj_nodes:ice_cracked1"})
-                elseif node.name == "tcj_nodes:ice_cracked1" then
-                    core.set_node(pos, {name = "tcj_nodes:ice_cracked2"})
-                elseif node.name == "tcj_nodes:ice_cracked2" then
-                    core.set_node(pos, {name = "air"})
+        local base_pos = player:get_pos()
+        -- Only loop over nearby ice if we are standing on ice
+        if string.find(core.get_node(base_pos).name, "tcj_nodes:ice") then
+            for _, offset in pairs(surrounding_nodes) do
+                if math.random() < 0.8 then
+                    local pos = base_pos + offset
+                    local node = core.get_node(pos)
+                    if node.name == "tcj_nodes:ice" then
+                        core.set_node(pos, {name = "tcj_nodes:ice_cracked1"})
+                    elseif node.name == "tcj_nodes:ice_cracked1" then
+                        core.set_node(pos, {name = "tcj_nodes:ice_cracked2"})
+                    elseif node.name == "tcj_nodes:ice_cracked2" then
+                        core.set_node(pos, {name = "air"})
+                    end
                 end
             end
         end
