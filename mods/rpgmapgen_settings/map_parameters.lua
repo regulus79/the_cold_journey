@@ -8,8 +8,18 @@ map_parameters.noiseamps = {20, 10, 5, 1}
 
 
 local routes = {
-	{startpos = vector.new(60,0,-10), endpos = vector.new(1000,200,1000), radius = 2},
-	{startpos = vector.new(60,0,-10), endpos = vector.new(-1000,200,-1000), radius = 2}, -- Wrong way
+	-- Path to mountain
+	{startpos = vector.new(60,0,-10), endpos = vector.new(100,0,300), radius = 2},
+	{startpos = vector.new(100,0,300), endpos = vector.new(-1000,200,1000), radius = 2},
+	-- Path by other side of river
+	{startpos = vector.new(-1000,0,-100), endpos = vector.new(1000,0,1900), radius = 2},
+	-- Path by this side of river
+	{startpos = vector.new(100,0,300), endpos = vector.new(1100,0,1300), radius = 2},
+	-- Path down south
+	{startpos = vector.new(60,0,-10), endpos = vector.new(-400,0,-1000), radius = 2},
+	-- Path by the southern mountains
+	{startpos = vector.new(-400,0,-1000), endpos = vector.new(1000,0,-1000), radius = 3},
+	{startpos = vector.new(-400,0,-1000), endpos = vector.new(-1000,0,-1000), radius = 3},
 }
 
 map_parameters.paths = {
@@ -43,7 +53,7 @@ map_parameters.level_grounds = {
 		node = "tcj_nodes:dirt_with_snow_village1",
 	},
 	{
-		pos = vector.new(1000,200,1000),
+		pos = vector.new(-1000,300,1000),
 		radius = 30,
 		interpolation_length = 80,
 		node = "tcj_nodes:dirt_with_snow_village1",
@@ -59,19 +69,28 @@ map_parameters.schematics = {
 		replacements = {},
 		force_placement = true,
 		flags = "place_center_x,place_center_z",
+	},
+	{
+		pos = vector.new(-1000,300,1000),
+		approx_size = 30,
+		file = core.get_modpath("rpgmapgen_settings") .. "/schems/loghouse1v1.mts",
+		rotation = "0",
+		replacements = {},
+		force_placement = true,
+		flags = "place_center_x,place_center_z",
 	}
 }
 
 
 -- General map height, pre-noise
--- Mountain range at x+z = 5000
--- river valley thing at x+z = 700
+-- Mountain range at z - x = 2000
+-- river valley thing at z - x = 700
 map_parameters.map_height = function(x,z)
-	local dist_from_range = x + z - 2000
-	local dist_from_river = x + z - 700
+	local dist_from_range = z - x - 2000
+	local dist_from_river = z - x - 700
 	local base_height = 40
-	local moutain_height = 200 * math.exp(-(dist_from_range*dist_from_range) / (500*500))
-	local river_height = -50 * math.exp(-(dist_from_river*dist_from_river) / (100*100))
+	local moutain_height = 300 * math.exp(-(dist_from_range*dist_from_range) / (500*500))
+	local river_height = -70 * math.exp(-(dist_from_river*dist_from_river) / (100*100))
 	return base_height + moutain_height + river_height
 end
 

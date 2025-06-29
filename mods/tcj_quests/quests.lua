@@ -7,46 +7,39 @@ minetest.register_on_newplayer(function(player)
         player:set_look_horizontal(math.pi/6)
         core.set_timeofday(0.5)
         winter.target_base_weather_intensity = -10
+        tcj_dialogue.start_dialogue(player, "intro")
     end)
+end)
+
+winter.register_timer("increase_weather_over_time", 10, function(dtime)
+    winter.target_base_weather_intensity = winter.target_base_weather_intensity + 1/3000 * dtime
 end)
 
 
 
 tcj_quests.quests = {
+    intro = {
+        type = "complete_dialogue",
+        hud_text = "",
+        dialogue_id = "intro",
+        on_complete = function(player, questdata)
+            tcj_quests.add_active_quest(player, "enter_the_cabin")
+        end
+    },
     enter_the_cabin = {
         type = "go_to_pos",
         hud_text = "Enter the cabin",
         pos = vector.new(47,10,0),
         radius = 5,
         on_complete = function(player, questdata)
-            tcj_quests.add_active_quest(player, "go_to_river")
-            winter.target_base_weather_intensity = 0
-        end
-    },
-    go_to_river = {
-        type = "go_to_pos",
-        hud_text = "Travel to safety",
-        pos = vector.new(350,30,350),
-        radius = 100,
-        on_complete = function(player, questdata)
-            tcj_quests.add_active_quest(player, "cross_river")
-        end
-    },
-    cross_river = {
-        type = "go_to_pos",
-        hud_text = "Cross the river",
-        pos = vector.new(450,30,450),
-        radius = 100,
-        on_complete = function(player, questdata)
             tcj_quests.add_active_quest(player, "go_to_end")
-            winter.target_base_weather_intensity = 0.2
         end
     },
     go_to_end = {
         type = "go_to_pos",
         hud_text = "Travel to safety",
-        pos = vector.new(1000,200,1000),
-        radius = 20,
+        pos = vector.new(-1000,300,1000),
+        radius = 10,
         on_complete = function(player, questdata)
             core.chat_send_player(player:get_player_name(), "You did it!")
         end

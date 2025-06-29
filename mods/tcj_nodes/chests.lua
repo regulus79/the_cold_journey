@@ -75,6 +75,7 @@ tcj_nodes.regsiter_chest(
 		{item = "tcj_fire:stick", prob = 0.5},
 		{item = "tcj_fire:stick", prob = 0.5},
 		{item = "tcj_hunger:bread", prob = 0.2},
+		{item = "tcj_navigation:map", prob = 1},
 	}
 )
 
@@ -115,5 +116,6 @@ tcj_nodes.regsiter_chest(
 		{item = "tcj_fire:stick", prob = 0.5},
 		{item = "tcj_hunger:bread 3", prob = 1},
 		{item = "tcj_hunger:bread 2", prob = 1},
+		{item = "tcj_navigation:compass1", prob = 1},
 	}
 )
